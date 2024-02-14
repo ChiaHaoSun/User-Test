@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ResetsPasswords;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Password;
+use Illuminate\Validation\ValidationException;
 
 class ResetPasswordController extends Controller
 {
@@ -21,13 +23,6 @@ class ResetPasswordController extends Controller
     */
 
     use ResetsPasswords;
-
-    /**
-     * Where to redirect users after resetting their password.
-     *
-     * @var string
-     */
-    protected $redirectTo = '/home';
 
     /**
      * 重設密碼頁
@@ -69,5 +64,41 @@ class ResetPasswordController extends Controller
         return $response == Password::PASSWORD_RESET
             ? $this->sendResetResponse($request, $response)
             : $this->sendResetFailedResponse($request, $response);
+    }
+
+    /**
+     * 重設密碼成功
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  string  $response
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
+     */
+    protected function sendResetResponse(Request $request, $response)
+    {
+        if ($request->wantsJson()) {
+            return new JsonResponse(['message' => trans($response)], 200);
+        }
+
+        return redirect()->route('index')->with('status', trans($response));
+    }
+
+    /**
+     * 重設密碼失敗
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  string  $response
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
+     */
+    protected function sendResetFailedResponse(Request $request, $response)
+    {
+        if ($request->wantsJson()) {
+            throw ValidationException::withMessages([
+                'email' => [trans($response)],
+            ]);
+        }
+
+        return redirect()->back()
+            ->withInput($request->only('email'))
+            ->withErrors(['email' => trans($response)]);
     }
 }
