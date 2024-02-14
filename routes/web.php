@@ -15,7 +15,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Auth::routes();
+//由於 ConfirmPasswordController 在此專案用不到，所以 confirm 設為 false。
+Auth::routes(['confirm' => false]);
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/', [HomeController::class, 'index'])->name('index');
