@@ -133,4 +133,10 @@ return [
             'rule-name' => 'custom-message',
         ],
     ],
+    'attributes' => [
+        'account'            => trans('commom.account'),
+        'password'           => trans('commom.password'),
+        'name'               => trans('commom.name'),
+        'email'              => trans('commom.email'),
+    ],
 ];
