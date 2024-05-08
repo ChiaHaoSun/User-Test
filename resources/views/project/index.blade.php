@@ -35,7 +35,7 @@
                                             <a href="{{ route('project.show', $val->id) }}" class="btn btn-info">
                                                 檢視
                                             </a>
-                                            <button type="button" class="btn btn-danger" onclick="destoryProject(1)">
+                                            <button type="button" class="btn btn-danger" onclick="destoryProject({{ $val->id }})">
                                                 刪除
                                             </button>
                                         </th>
