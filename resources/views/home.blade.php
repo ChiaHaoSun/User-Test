@@ -16,7 +16,11 @@
                         </div>
                     @endif
 
-                    你成功登入了!
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <a href="{{ route('project.index') }}" class="href">專案列表</a>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
