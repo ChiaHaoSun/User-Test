@@ -134,9 +134,9 @@ return [
         ],
     ],
     'attributes' => [
-        'account'            => trans('commom.account'),
-        'password'           => trans('commom.password'),
-        'name'               => trans('commom.name'),
-        'email'              => trans('commom.email'),
+        'account'            => trans('common.account'),
+        'password'           => trans('common.password'),
+        'name'               => trans('common.name'),
+        'email'              => trans('common.email'),
     ],
 ];
